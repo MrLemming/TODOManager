@@ -14,7 +14,7 @@ public class Client {
              PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
              BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         ) {
-            out.println("{ \"type\": \"ADD\", \"task\": \"Сходить в магазин\" }");
+            out.println("{ \"type\": \"ADD\", \"task\": \"Задача №3\" }");
             System.out.println(in.readLine());
         } catch (UnknownHostException e) {
             throw new RuntimeException(e);

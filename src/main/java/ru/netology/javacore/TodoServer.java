@@ -16,7 +16,6 @@ public class TodoServer {
         this.port = port;
         gson = new Gson();
     }
-
     public void start() throws IOException {
         try (ServerSocket serverSocket = new ServerSocket(port);) {
             while (true) {
@@ -28,12 +27,18 @@ public class TodoServer {
                 ) {
                     System.out.println("Сервер запущен!");
                     Request newTask = gson.fromJson(in.readLine(), Request.class);
+                    if (newTask.getType().equals("ADD") || newTask.getType().equals("REMOVE")) {
+                        todos.addLastTask(newTask);
+                    }
                     switch (newTask.getType()) {
                         case "ADD":
                             todos.addTask(newTask.getTask());
                             break;
                         case "REMOVE":
                             todos.removeTask(newTask.getTask());
+                            break;
+                        case "RESTORE":
+                            todos.restoreRequest();
                             break;
                         default:
                             break;

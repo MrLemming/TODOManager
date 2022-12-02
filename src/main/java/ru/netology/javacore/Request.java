@@ -5,6 +5,8 @@ public class Request {
     private String task;
 
     public Request(String type, String task) {
+        this.type = type;
+        this.task = task;
     }
 
     public String getType() {

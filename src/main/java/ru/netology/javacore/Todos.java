@@ -1,11 +1,13 @@
 package ru.netology.javacore;
 
 import java.util.Set;
+import java.util.Stack;
 import java.util.TreeSet;
 
 public class Todos {
     private static final int MAX_TASKS = 7;
     private Set<String> tasks;
+    private final Stack<Request> requestList = new Stack<>();
 
     public Todos() {
         this.tasks = new TreeSet<>();
@@ -21,7 +23,24 @@ public class Todos {
         tasks.remove(task);
     }
 
+    public void addLastTask(Request request) {
+        requestList.add(request);
+    }
+
     public void restoreRequest() {
+        if (!requestList.isEmpty()) {
+            Request lastRequest = requestList.pop();
+            switch (lastRequest.getType()) {
+                case "ADD":
+                    tasks.remove(lastRequest.getTask());
+                    break;
+                case "REMOVE":
+                    tasks.add(lastRequest.getTask());
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     public String getAllTasks() {
